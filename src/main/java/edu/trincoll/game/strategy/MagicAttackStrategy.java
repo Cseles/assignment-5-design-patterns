@@ -3,6 +3,25 @@ package edu.trincoll.game.strategy;
 import edu.trincoll.game.model.Character;
 
 /**
+ * AI Collaboration Summary:
+ * Tool: Claude
+ *
+ * What AI Helped With:
+ * 1. Provided step-by-step implementation guide for strategy calculations
+ * 2. Explained the mathematical formulas for each strategy type
+ *
+ * What I Had to Fix:
+ * [Add anything you changed or debugged]
+ *
+ * What I Learned:
+ * - How the Strategy pattern allows interchangeable algorithms
+ * - Using integer division and casting for game damage calculations
+ * - Why Math.max() is used to prevent negative damage
+ *
+ * Team: Daniel Simon
+ */
+
+/**
  * Magic attack - uses mana and attack power to calculate damage.
  * Used by Mages.
  *
@@ -23,8 +42,19 @@ import edu.trincoll.game.model.Character;
  */
 public class MagicAttackStrategy implements AttackStrategy {
     @Override
-    public int calculateDamage(Character attacker, Character target) {
-        // TODO 1b: Implement magic attack calculation
-        throw new UnsupportedOperationException("TODO 1b: Implement magic attack calculation");
+public int calculateDamage(Character attacker, Character target) {
+    // Base damage from attack power
+    int baseDamage = attacker.getStats().attackPower();
+    
+    // Calculate mana bonus (current mana divided by 10)
+    int manaBonus = attacker.getStats().mana() / 10;
+    
+    // Total damage
+    int totalDamage = baseDamage + manaBonus;
+    
+    // Consume 10 mana (this is important!)
+    attacker.useMana(10);
+    
+    return totalDamage;
     }
 }
