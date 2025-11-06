@@ -6,6 +6,30 @@ import edu.trincoll.game.model.CharacterType;
 import edu.trincoll.game.strategy.*;
 
 /**
+ * AI Collaboration Summary:
+ * Tool: ChatGPT (GPT-5)
+ *
+ * What AI Helped With:
+ * 1. Guided the implementation of all factory methods (createWarrior, createMage, createArcher, createRogue, createCharacter).
+ * 2. Suggested correct use of the Builder pattern (Character.builder()) for character creation.
+ * 3. Clarified the correct stat configurations and attack/defense strategy pairings for each character type.
+ * 4. Explained how to implement the switch expression in createCharacter() using modern Java syntax (Java 21).
+ *
+ * What I Had to Fix or Finalize Manually:
+ * 1. Verified and aligned character stat values (HP, ATK, DEF, MANA) with assignment requirements.
+ * 2. Ensured each builder call chained properly and returned a fully configured Character instance.
+ * 3. Fixed test failures related to missing IllegalArgumentException for null CharacterType.
+ *
+ * What I Learned:
+ * - How the Factory Method pattern simplifies complex object creation by encapsulating configuration logic.
+ * - How to use builder chaining to make object construction cleaner and more readable.
+ * - How to apply Java 21 switch expressions for flexible and maintainable factory logic.
+ *
+ * Task: Taha Moula
+ */
+
+/**
+ *
  * Factory for creating pre-configured characters.
  * Demonstrates the Factory Method pattern for object creation.
  *
