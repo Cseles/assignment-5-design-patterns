@@ -161,32 +161,28 @@ public class Character {
             this.defenseStrategy = defenseStrategy;
             return this;
         }
-    /**
-    * Builds and returns a new Character instance.
-    * 
-    * @return a new Character with all configured properties
-    * @throws IllegalStateException if any required field is null
-    */
-    public Character build() {
-        // Validate all required fields are non-null
-        if (name == null) {
-            throw new IllegalStateException("name is required");
-        }
-        if (type == null) {
-            throw new IllegalStateException("type is required");
-        }
-        if (stats == null) {
-            throw new IllegalStateException("stats is required");
-        }
-        if (attackStrategy == null) {
-            throw new IllegalStateException("attackStrategy is required");
-        }
-        if (defenseStrategy == null) {
-            throw new IllegalStateException("defenseStrategy is required");
-        }
 
-        // Construct and return character
-        return new Character(name, type, stats, attackStrategy, defenseStrategy);
+        public Character build() {
+    // Validate all required fields
+    if (name == null) {
+        throw new IllegalStateException("name is required");
+    }
+    if (type == null) {
+        throw new IllegalStateException("type is required");
+    }
+    if (stats == null) {
+        throw new IllegalStateException("stats is required");
+    }
+    if (attackStrategy == null) {
+        throw new IllegalStateException("attackStrategy is required");
+    }
+    if (defenseStrategy == null) {
+        throw new IllegalStateException("defenseStrategy is required");
+    }
+
+    // Construct and return a new Character instance
+    return new Character(name, type, stats, attackStrategy, defenseStrategy);
+}
     }
 
     /**
