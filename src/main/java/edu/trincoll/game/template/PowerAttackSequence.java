@@ -54,10 +54,12 @@ public class PowerAttackSequence extends BattleSequence {
      */
     @Override
     protected void postAttackAction() {
-        // Calculate recoil: 10% of attacker's max health
-        int recoil = (int) (attacker.getStats().maxHealth() * 0.1);
-        
-        // Apply recoil damage to attacker
-        attacker.takeDamage(recoil);
-    }
+    // Calculate recoil: 10% of attacker's max health
+    int recoil = (int) (attacker.getStats().maxHealth() * 0.1);
+
+    // Apply raw recoil damage directly (bypassing defense)
+    int currentHealth = attacker.getStats().health();
+    attacker.setHealth(currentHealth - recoil);
+}
+    
 }
