@@ -5,19 +5,8 @@ import edu.trincoll.game.model.Character;
 /**
  * Command to execute an attack from one character to another.
  *
- * TODO 4a: Implement execute() and undo()
- *
- * Requirements for execute():
- * 1. Calculate damage: attacker.attack(target)
- * 2. Apply damage: target.takeDamage(calculatedDamage)
- * 3. Store the damage dealt for potential undo
- *
- * Requirements for undo():
- * 1. Heal the target for the amount of damage that was dealt
- * 2. Use target.heal(damageDealt)
- *
- * Note: This is a simplified undo - in a real game, you'd need to
- * restore mana usage, status effects, etc.
+ * This class demonstrates the Command pattern by encapsulating
+ * an attack action and supporting undo functionality.
  */
 public class AttackCommand implements GameCommand {
     private final Character attacker;
@@ -29,16 +18,32 @@ public class AttackCommand implements GameCommand {
         this.target = target;
     }
 
+    /**
+     * Executes the attack command.
+     * 
+     * 1. Calculates damage using the attacker's attack strategy
+     * 2. Applies damage to the target
+     * 3. Stores the actual damage dealt for potential undo
+     */
     @Override
     public void execute() {
-        // TODO 4a: Implement attack execution
-        throw new UnsupportedOperationException("TODO 4a: Implement AttackCommand.execute()");
+        // Calculate damage using attacker's strategy against target
+        damageDealt = attacker.attack(target);
+        
+        // Apply the damage to the target
+        target.takeDamage(damageDealt);
     }
 
+    /**
+     * Undoes the attack command by restoring the target's health.
+     * 
+     * Note: This is a simplified undo. In a real game, you would
+     * also need to restore mana usage, status effects, etc.
+     */
     @Override
     public void undo() {
-        // TODO 4a: Implement attack undo
-        throw new UnsupportedOperationException("TODO 4a: Implement AttackCommand.undo()");
+        // Restore the target's health by healing the damage dealt
+        target.heal(damageDealt);
     }
 
     @Override

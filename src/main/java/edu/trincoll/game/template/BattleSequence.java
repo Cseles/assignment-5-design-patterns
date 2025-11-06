@@ -25,21 +25,21 @@ public abstract class BattleSequence {
     }
 
     /**
-     * TODO 5a: Implement the template method executeTurn()
-     *
-     * This is the Template Method - it defines the algorithm structure.
-     * Call the methods in this order:
-     * 1. beginTurn()
-     * 2. preAttackAction()
-     * 3. performAttack()
-     * 4. postAttackAction()
-     * 5. endTurn()
-     *
-     * Make this method final so subclasses can't override the sequence.
+     * Template Method - defines the algorithm structure for a battle turn.
+     * 
+     * This method is final to prevent subclasses from changing the sequence.
+     * Subclasses customize behavior by overriding the hook methods and
+     * implementing the abstract performAttack() method.
+     * 
+     * The sequence ensures all battle turns follow the same structure:
+     * beginTurn → preAttackAction → performAttack → postAttackAction → endTurn
      */
     public final void executeTurn() {
-        // TODO 5a: Implement the template method
-        throw new UnsupportedOperationException("TODO 5a: Implement executeTurn() template method");
+        beginTurn();
+        preAttackAction();
+        performAttack();
+        postAttackAction();
+        endTurn();
     }
 
     /**

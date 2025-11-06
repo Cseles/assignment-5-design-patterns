@@ -5,10 +5,9 @@ import edu.trincoll.game.model.Character;
 /**
  * Standard battle sequence - simple attack with no special actions.
  *
- * TODO 5b: Implement performAttack()
- *
- * This concrete implementation only needs to define the attack behavior.
- * The rest of the sequence is handled by the template method.
+ * This concrete implementation demonstrates the Template Method pattern
+ * by providing a specific implementation of the performAttack() step
+ * while inheriting the overall battle turn structure from BattleSequence.
  */
 public class StandardBattleSequence extends BattleSequence {
 
@@ -17,15 +16,18 @@ public class StandardBattleSequence extends BattleSequence {
     }
 
     /**
-     * TODO 5b: Implement performAttack()
-     *
-     * Requirements:
-     * 1. Calculate damage: attacker.attack(defender)
-     * 2. Apply damage: defender.takeDamage(calculatedDamage)
+     * Implements the standard attack behavior.
+     * 
+     * This is a straightforward attack with no modifiers or special effects.
+     * The damage calculation uses the attacker's strategy and the defender's
+     * defense is applied automatically through takeDamage().
      */
     @Override
     protected void performAttack() {
-        // TODO 5b: Implement standard attack
-        throw new UnsupportedOperationException("TODO 5b: Implement StandardBattleSequence.performAttack()");
+        // Calculate damage using attacker's attack strategy
+        int damage = attacker.attack(defender);
+        
+        // Apply damage to defender (defense is applied automatically)
+        defender.takeDamage(damage);
     }
 }

@@ -8,8 +8,6 @@ import java.util.Stack;
  * Invoker for executing and managing commands.
  * Maintains command history for undo operations.
  *
- * TODO 4c: Implement executeCommand() and undoLastCommand()
- *
  * This class demonstrates the Command pattern's ability to:
  * - Queue commands for execution
  * - Maintain history
@@ -19,32 +17,47 @@ public class CommandInvoker {
     private final Stack<GameCommand> commandHistory = new Stack<>();
 
     /**
-     * TODO 4c: Implement executeCommand()
-     *
-     * Requirements:
-     * 1. Execute the command: command.execute()
-     * 2. Add the command to history: commandHistory.push(command)
+     * Executes a command and adds it to the command history.
+     * 
+     * This method demonstrates the Invoker's role in the Command pattern:
+     * it executes commands without needing to know their implementation details.
+     * 
+     * @param command the command to execute
      */
     public void executeCommand(GameCommand command) {
-        // TODO 4c: Implement command execution
-        throw new UnsupportedOperationException("TODO 4c: Implement executeCommand()");
+        // Execute the command
+        command.execute();
+        
+        // Add to history for potential undo
+        commandHistory.push(command);
     }
 
     /**
-     * TODO 4c: Implement undoLastCommand()
-     *
-     * Requirements:
-     * 1. Check if history is empty - if so, return
-     * 2. Pop the last command from history
-     * 3. Call undo() on that command
+     * Undoes the last executed command.
+     * 
+     * Removes the most recent command from history and calls its undo() method.
+     * If the command history is empty, this method does nothing.
+     * 
+     * This demonstrates LIFO (Last In, First Out) undo behavior - the most
+     * recent action is undone first.
      */
     public void undoLastCommand() {
-        // TODO 4c: Implement undo
-        throw new UnsupportedOperationException("TODO 4c: Implement undoLastCommand()");
+        // Check if there are any commands to undo
+        if (commandHistory.isEmpty()) {
+            return;
+        }
+        
+        // Pop the last command from history
+        GameCommand command = commandHistory.pop();
+        
+        // Undo the command
+        command.undo();
     }
 
     /**
      * Get the command history (for testing and logging).
+     * 
+     * @return a copy of the command history
      */
     public List<GameCommand> getCommandHistory() {
         return new ArrayList<>(commandHistory);
@@ -59,6 +72,8 @@ public class CommandInvoker {
 
     /**
      * Check if there are commands to undo.
+     * 
+     * @return true if there are commands in the history
      */
     public boolean hasCommandsToUndo() {
         return !commandHistory.isEmpty();

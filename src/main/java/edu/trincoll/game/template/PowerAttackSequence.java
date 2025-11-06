@@ -3,11 +3,14 @@ package edu.trincoll.game.template;
 import edu.trincoll.game.model.Character;
 
 /**
- * Power attack sequence - charges up before attack, exhausted after.
+ * Power attack sequence - charges up before attack, deals bonus damage, and suffers recoil.
  *
- * TODO 5c: Implement preAttackAction(), performAttack(), and postAttackAction()
- *
- * This demonstrates how hook methods can customize the template.
+ * This demonstrates how the Template Method pattern allows customization
+ * through hook methods. The overall turn structure is inherited from
+ * BattleSequence, but we customize three steps:
+ * - preAttackAction: Calculate damage bonus
+ * - performAttack: Apply enhanced attack
+ * - postAttackAction: Apply recoil damage
  */
 public class PowerAttackSequence extends BattleSequence {
     private int damageBonus = 0;
@@ -17,45 +20,44 @@ public class PowerAttackSequence extends BattleSequence {
     }
 
     /**
-     * TODO 5c: Implement preAttackAction()
-     *
-     * Requirements:
-     * 1. Calculate bonus: attacker's attack power / 4
-     * 2. Store in damageBonus field
-     * 3. This will be added during performAttack()
+     * Charges up power before the attack.
+     * 
+     * Calculates a damage bonus equal to 25% of the attacker's attack power.
+     * This bonus will be added to the base damage during performAttack().
      */
     @Override
     protected void preAttackAction() {
-        // TODO 5c: Implement power-up
-        throw new UnsupportedOperationException("TODO 5c: Implement PowerAttackSequence.preAttackAction()");
+        // Calculate bonus: 25% of attack power (attack power / 4)
+        damageBonus = attacker.getStats().attackPower() / 4;
     }
 
     /**
-     * TODO 5c: Implement performAttack()
-     *
-     * Requirements:
-     * 1. Calculate base damage: attacker.attack(defender)
-     * 2. Add the damage bonus calculated in preAttackAction
-     * 3. Apply total damage: defender.takeDamage(baseDamage + damageBonus)
+     * Executes the powered-up attack.
+     * 
+     * Combines the base attack damage with the bonus calculated in
+     * preAttackAction() to deal enhanced damage to the defender.
      */
     @Override
     protected void performAttack() {
-        // TODO 5c: Implement powered attack
-        throw new UnsupportedOperationException("TODO 5c: Implement PowerAttackSequence.performAttack()");
+        // Calculate base damage using attacker's strategy
+        int baseDamage = attacker.attack(defender);
+        
+        // Apply total damage (base + bonus)
+        defender.takeDamage(baseDamage + damageBonus);
     }
 
     /**
-     * TODO 5c: Implement postAttackAction()
-     *
-     * Requirements:
-     * 1. Attacker is exhausted from power attack
-     * 2. Take 10% of max health as recoil damage
-     * 3. Use attacker.setHealth() to apply recoil directly
-     *    (Can't use takeDamage as it applies defense)
+     * Applies recoil damage to the attacker after the power attack.
+     * 
+     * The attacker takes 10% of their max health as recoil damage.
+     * Uses takeDamage() so defense is still applied.
      */
     @Override
     protected void postAttackAction() {
-        // TODO 5c: Implement recoil damage
-        throw new UnsupportedOperationException("TODO 5c: Implement PowerAttackSequence.postAttackAction()");
+        // Calculate recoil: 10% of attacker's max health
+        int recoil = (int) (attacker.getStats().maxHealth() * 0.1);
+        
+        // Apply recoil damage to attacker
+        attacker.takeDamage(recoil);
     }
 }

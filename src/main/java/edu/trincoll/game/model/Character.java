@@ -161,22 +161,32 @@ public class Character {
             this.defenseStrategy = defenseStrategy;
             return this;
         }
-
-        /**
-         * TODO 3: Implement the build() method
-         *
-         * Requirements:
-         * 1. Validate that all required fields are set (name, type, stats, both strategies)
-         * 2. Throw IllegalStateException with clear message if any field is null
-         * 3. Return a new Character instance
-         *
-         * This demonstrates the Builder pattern's ability to construct complex objects
-         * while ensuring all required fields are provided before construction.
-         */
-        public Character build() {
-            // TODO: Implement validation and construction
-            throw new UnsupportedOperationException("TODO 3: Implement build() method");
+    /**
+    * Builds and returns a new Character instance.
+    * 
+    * @return a new Character with all configured properties
+    * @throws IllegalStateException if any required field is null
+    */
+    public Character build() {
+        // Validate all required fields are non-null
+        if (name == null) {
+            throw new IllegalStateException("name is required");
         }
+        if (type == null) {
+            throw new IllegalStateException("type is required");
+        }
+        if (stats == null) {
+            throw new IllegalStateException("stats is required");
+        }
+        if (attackStrategy == null) {
+            throw new IllegalStateException("attackStrategy is required");
+        }
+        if (defenseStrategy == null) {
+            throw new IllegalStateException("defenseStrategy is required");
+        }
+
+        // Construct and return character
+        return new Character(name, type, stats, attackStrategy, defenseStrategy);
     }
 
     /**
