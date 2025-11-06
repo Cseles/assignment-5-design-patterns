@@ -3,6 +3,25 @@ package edu.trincoll.game.strategy;
 import edu.trincoll.game.model.Character;
 
 /**
+ * AI Collaboration Summary:
+ * Tool: Claude
+ *
+ * What AI Helped With:
+ * 1. Provided step-by-step implementation guide for strategy calculations
+ * 2. Explained the mathematical formulas for each strategy type
+ *
+ * What I Had to Fix:
+ * [Add anything you changed or debugged]
+ *
+ * What I Learned:
+ * - How the Strategy pattern allows interchangeable algorithms
+ * - Using integer division and casting for game damage calculations
+ * - Why Math.max() is used to prevent negative damage
+ *
+ * Team: Daniel Simon
+ */
+
+/**
  * Ranged attack - physical damage with accuracy modifier.
  * Used by Archers.
  *
@@ -30,7 +49,20 @@ import edu.trincoll.game.model.Character;
 public class RangedAttackStrategy implements AttackStrategy {
     @Override
     public int calculateDamage(Character attacker, Character target) {
-        // TODO 1c: Implement ranged attack with critical hit logic
-        throw new UnsupportedOperationException("TODO 1c: Implement ranged attack calculation");
+        // Base damage with 80% accuracy
+        int baseDamage = attacker.getStats().attackPower();
+        int damageWithAccuracy = (int) (baseDamage * 0.8);
+        
+        // Check for critical hit: target health < 30% of max health
+        int targetHealth = target.getStats().health();
+        int targetMaxHealth = target.getStats().maxHealth();
+        
+        // Calculate if health percentage is below 30%
+        if (targetHealth < targetMaxHealth * 0.3) {
+            // Critical hit! Apply 1.5x damage
+            damageWithAccuracy = (int) (damageWithAccuracy * 1.5);
+        }
+        
+        return damageWithAccuracy;
     }
 }

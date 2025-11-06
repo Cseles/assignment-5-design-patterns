@@ -3,6 +3,25 @@ package edu.trincoll.game.strategy;
 import edu.trincoll.game.model.Character;
 
 /**
+ * AI Collaboration Summary:
+ * Tool: Claude
+ *
+ * What AI Helped With:
+ * 1. Provided step-by-step implementation guide for strategy calculations
+ * 2. Explained the mathematical formulas for each strategy type
+ *
+ * What I Had to Fix:
+ * [Add anything you changed or debugged]
+ *
+ * What I Learned:
+ * - How the Strategy pattern allows interchangeable algorithms
+ * - Using integer division and casting for game damage calculations
+ * - Why Math.max() is used to prevent negative damage
+ *
+ * Team: Daniel Simon
+ */
+
+/**
  * Standard defense - reduces damage by a percentage of defense stat.
  * Used by most character types.
  *
@@ -21,7 +40,13 @@ import edu.trincoll.game.model.Character;
 public class StandardDefenseStrategy implements DefenseStrategy {
     @Override
     public int calculateDamageReduction(Character defender, int incomingDamage) {
-        // TODO 1d: Implement standard defense calculation
-        throw new UnsupportedOperationException("TODO 1d: Implement standard defense calculation");
-    }
+        // Calculate damage reduction (defense divided by 2)
+        int damageReduction = defender.getStats().defense() / 2;
+        
+        // Calculate actual damage after reduction
+        int actualDamage = incomingDamage - damageReduction;
+        
+        // Make sure damage is never negative
+        return Math.max(0, actualDamage);
+    }  
 }
